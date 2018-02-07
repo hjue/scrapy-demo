@@ -26,7 +26,8 @@ class IshuyinSpider(CrawlSpider):
 
 
     def parse(self, response):
-        # urls = response.css('#articleDiv a ').extract()
+        # urls = response.css('#articleDiv a ::attr(href) ').extract()
+        # urls = response.css('#articleDiv a ::attr(href)').re(r'player.*')
         urls = response.xpath('//*[@id="articleDiv"]/div/div/div/div/a/@href').extract()
         
         for link in urls:
