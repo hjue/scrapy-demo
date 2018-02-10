@@ -38,6 +38,6 @@ scrapy crawl ishuyin -o items.json
 ```
 
 docker build -t scrapy-demo .
-docker run  -v scrapy-demo:/scrapy-demo -t scrapy-demo scrapy crawl ishuyin
+docker run --rm -v scrapy-demo:/scrapy-demo -t scrapy-demo scrapy crawl ishuyin
 
 ```
