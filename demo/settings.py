@@ -67,7 +67,9 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'scrapy.pipelines.files.FilesPipeline':1
+   'scrapy.pipelines.files.FilesPipeline':1,
+   'demo.pipelines.DuplicatesPipeline':2,
+   'demo.pipelines.CailianPipeline':100
 }
 FILES_STORE ='./download_files'
 MEDIA_ALLOW_REDIRECTS = True
