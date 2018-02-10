@@ -1,0 +1,4 @@
+py_mini_racer==0.1.12
+leancloud==2.1.7
+Scrapy==1.5.0
+fake-useragent==0.1.8

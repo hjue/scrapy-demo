@@ -1,11 +1,14 @@
 ## Scrapy Projects
 
+### Requirement
+
+Python3
+
 ### Install
 
 
 ```
-pip3 install Scrapy
-pip3 install fake-useragent
+pip install -r requirements.txt
 
 ```
 
