@@ -12,12 +12,13 @@ import leancloud
 
 class DuplicatesPipeline(object):
 
-    id_filename = 'ids.json'
-
     def __init__(self):
         self.ids = []
+        self.id_filename = 'ids.json'
 
     def open_spider(self, spider):
+      
+      self.id_filename = spider.name + "_" +self.id_filename
 
       if not os.path.exists(self.id_filename):
         open(self.id_filename,'w').write('')
@@ -36,6 +37,9 @@ class DuplicatesPipeline(object):
         self.file.close()
 
     def process_item(self, item, spider):
+        if "id" not in item:
+          return item
+          
         if item['id'] in self.ids:
             raise DropItem("Duplicate item found:%s" %  item)
         else:
@@ -44,7 +48,10 @@ class DuplicatesPipeline(object):
 
 class CailianPipeline(object):
 
+
     def open_spider(self, spider):
+      if spider.name != "cailianpress" :
+        return
       logging.info("Init Leancloud"+'.'*20)
       appkey = os.environ['lean_key']
       appid = os.environ['lean_id']
@@ -59,6 +66,9 @@ class CailianPipeline(object):
 
     def process_item(self, item, spider):
       
+      if spider.name != "cailianpress" :
+        return
+
       fields = ["id","title","brief","content","ctime","level","shareurl"
         ,"status","images","tags"]      
 
