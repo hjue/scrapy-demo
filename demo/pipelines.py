@@ -41,7 +41,7 @@ class DuplicatesPipeline(object):
           return item
           
         if item['id'] in self.ids:
-            raise DropItem("Duplicate item found:%s" %  item)
+            raise DropItem("Duplicate item found:%s" %  item["id"])
         else:
             self.ids.append(item['id'])
             return item
@@ -67,15 +67,50 @@ class CailianPipeline(object):
     def process_item(self, item, spider):
       
       if spider.name != "cailianpress" :
-        return
+        return item
 
-      fields = ["id","title","brief","content","ctime","level","shareurl"
-        ,"status","images","tags"]      
+      fields = ["id","title","content","ctime","level","brief"]      
 
-      Telegraph = leancloud.Object.extend('Telegraph')
-      telegraph_object = Telegraph()
+      Article = leancloud.Object.extend('Article')
+      article_object = Article()
       for field in fields:
-        telegraph_object.set(field, item[field])
+        article_object.set(field, item[field])
       
-      telegraph_object.save()
+      article_object.set("origin", "cailianpress")
+      article_object.save()
+
+      return item
+
+class XueqiuPipeline(object):
+
+
+    def open_spider(self, spider):
+      if spider.name != "xueqiu" :
+        return
+      logging.info("Init Leancloud"+'.'*20)
+      appkey = os.environ['lean_key']
+      appid = os.environ['lean_id']
+      if appid and appkey:
+        leancloud.init(appid,appkey)
+        # leancloud.use_region('CN')
+        # leancloud.use_region('US') 
+
+
+    def close_spider(self, spider):
+      pass
+
+    def process_item(self, item, spider):
+      
+      if spider.name != "xueqiu" :
+        return item
+
+      fields = ["id","title","content","ctime","level","origin"]      
+
+      Article = leancloud.Object.extend('Article')
+      article_object = Article()
+      for field in fields:
+        article_object.set(field, item[field])
+      
+      article_object.set("status", 1)
+      article_object.save()
       return item

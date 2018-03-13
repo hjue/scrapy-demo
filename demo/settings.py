@@ -69,7 +69,9 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
    'scrapy.pipelines.files.FilesPipeline':1,
    'demo.pipelines.DuplicatesPipeline':2,
-   'demo.pipelines.CailianPipeline':100
+   'demo.pipelines.CailianPipeline':100,
+   'demo.pipelines.XueqiuPipeline':101
+   
 }
 FILES_STORE ='./download_files'
 MEDIA_ALLOW_REDIRECTS = True
