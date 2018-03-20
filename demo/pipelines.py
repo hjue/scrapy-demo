@@ -41,7 +41,7 @@ class DuplicatesPipeline(object):
           return item
           
         if item['id'] in self.ids:
-            raise DropItem("Duplicate item found:%s" %  item["id"])
+            raise DropItem("%s Duplicate item found:%s" %  item["id"])
         else:
             self.ids.append(item['id'])
             return item
@@ -70,6 +70,9 @@ class CailianPipeline(object):
         return item
 
       fields = ["id","title","content","ctime","level","brief"]      
+
+      if item['brief'].find('新闻联播')>-1 :
+        item['level'] = 'B'
 
       Article = leancloud.Object.extend('Article')
       article_object = Article()
