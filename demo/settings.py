@@ -66,8 +66,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+#    'scrapy.pipelines.files.FilesPipeline':1,
 ITEM_PIPELINES = {
-   'scrapy.pipelines.files.FilesPipeline':1,
+   'demo.pipelines.RenameFilesPipeline':1,
    'demo.pipelines.DuplicatesPipeline':2,
    'demo.pipelines.CailianPipeline':100,
    'demo.pipelines.XueqiuPipeline':101

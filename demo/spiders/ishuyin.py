@@ -12,12 +12,18 @@ from py_mini_racer import py_mini_racer
 class IshuyinItem(scrapy.Item):
   title = scrapy.Field()
   file_urls=scrapy.Field()
-  files=scrapy.Field()  
+  files= scrapy.Field() 
+  album = scrapy.Field() 
+  picture = scrapy.Field() 
+  artist= scrapy.Field() 
 
 class IshuyinSpider(CrawlSpider):
     name = 'ishuyin'
     allowed_domains = ['www.ishuyin.com']
-    start_urls = ['http://www.ishuyin.com/show-21555.html']
+    start_urls = ['https://www.ishuyin.com/show-21558.html']
+    album = '蒋勋讲中国文学：从唐诗到元曲'
+    artist = "蒋勋"
+    picture = 'https://mp3-45.oss-cn-hangzhou.aliyuncs.com/upload/posters/201709/image/1505304491_tRb.jpg'
 
 
     # rules = (
@@ -52,6 +58,10 @@ class IshuyinSpider(CrawlSpider):
           item = IshuyinItem()
           item['title'] = title.strip().split('-')[0].strip()
           item['file_urls'] = [url]
+          item['album'] = self.album
+          item['picture'] = self.picture
+          item['artist'] = self.artist
+
           yield item
 
         else:
